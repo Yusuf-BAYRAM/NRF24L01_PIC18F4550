@@ -1,0 +1,15 @@
+Change Physical Footprint: Designator=B1 Old Footprint=BUTTON New Footprint=BUTTON
+Change Physical Footprint: Designator=B2 Old Footprint=BUTTON New Footprint=BUTTON
+Change Physical Footprint: Designator=B4 Old Footprint=BUTTON New Footprint=BUTTON
+Change Physical Footprint: Designator=B5 Old Footprint=BUTTON New Footprint=BUTTON
+Change Physical Footprint: Designator=B6 Old Footprint=BUTTON New Footprint=BUTTON
+Change Physical Footprint: Designator=B7 Old Footprint=BUTTON New Footprint=BUTTON
+Change Physical Footprint: Designator=H1 Old Footprint=HEADER1x3 New Footprint=HEADER1x3
+Change Physical Footprint: Designator=H2 Old Footprint=HEADER1x3 New Footprint=HEADER1x3
+Change Physical Footprint: Designator=H3 Old Footprint=HEADER1x3 New Footprint=HEADER1x3
+Change Physical Footprint: Designator=H4 Old Footprint=HEADER1x3 New Footprint=HEADER1x3
+Change Physical Footprint: Designator=H5 Old Footprint=HEADER1x3 New Footprint=HEADER1x3
+Change Physical Footprint: Designator=H6 Old Footprint=HEADER1x3 New Footprint=HEADER1x3
+Change Physical Footprint: Designator=R6 Old Footprint=330_RES New Footprint=330_RES
+Change Physical Footprint: Designator=R7 Old Footprint=330_RES New Footprint=330_RES
+Change Physical Footprint: Designator=R8 Old Footprint=330_RES New Footprint=330_RES

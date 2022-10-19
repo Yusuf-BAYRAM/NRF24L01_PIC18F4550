@@ -1,0 +1,5 @@
+Added Pin To Net: NetName=+5 Pin=PIC1-11
+Added Pin To Net: NetName=GND Pin=PIC1-12
+Added Pin To Net: NetName=GND Pin=PIC1-31
+Added Pin To Net: NetName=+5 Pin=PIC1-32
+Added Room: Name=Excavator_SEMA

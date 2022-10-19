@@ -1,0 +1,29 @@
+Added Component: Designator=B1(buzzer)
+Added Component: Designator=H5(HEADER1x2)
+Added Component: Designator=H6(HEADER1x2)
+Added Component: Designator=R6(220_RES)
+Added Component: Designator=R7(220_RES)
+Added Pin To Net: NetName=GND Pin=B1-N
+Added Pin To Net: NetName=GND Pin=H5-0
+Added Pin To Net: NetName=GND Pin=H6-0
+Added Pin To Net: NetName=NetB1_P Pin=B1-P
+Added Pin To Net: NetName=NetB1_P Pin=PIC1-5
+Added Net: Name=NetB1_P
+Added Pin To Net: NetName=NetH5_1 Pin=H5-1
+Added Pin To Net: NetName=NetH5_1 Pin=R6-2
+Added Net: Name=NetH5_1
+Added Pin To Net: NetName=NetH6_1 Pin=H6-1
+Added Pin To Net: NetName=NetH6_1 Pin=R7-2
+Added Net: Name=NetH6_1
+Added Pin To Net: NetName=NetPIC1_6 Pin=PIC1-6
+Added Pin To Net: NetName=NetPIC1_6 Pin=R6-1
+Added Net: Name=NetPIC1_6
+Added Pin To Net: NetName=NetPIC1_7 Pin=PIC1-7
+Added Pin To Net: NetName=NetPIC1_7 Pin=R7-1
+Added Net: Name=NetPIC1_7
+Added Member To Class: ClassName=Excavator_SEMA Member=Component B1 BUZZER
+Added Member To Class: ClassName=Excavator_SEMA Member=Component H5 LED
+Added Member To Class: ClassName=Excavator_SEMA Member=Component H6 LED
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R6 220
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R7 220
+Added Room: Name=Excavator_SEMA

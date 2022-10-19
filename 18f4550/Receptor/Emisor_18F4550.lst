@@ -1,0 +1,1693 @@
+CCS PCH C Compiler, Version 5.007, 61971               17-Eki-21 17:44
+
+               Filename:   C:\Users\90543\Desktop\17.10.2021 NRf\Receptor\Emisor_18F4550.lst
+
+               ROM used:   1794 bytes (5%)
+                           Largest free fragment is 30970
+               RAM used:   55 (3%) at main() level
+                           63 (3%) worst case
+               Stack used: 1 locations (0 in main + 1 for interrupts)
+               Stack size: 31
+
+*
+0000:  GOTO   05D0
+*
+0008:  MOVWF  04
+000A:  MOVFF  FD8,05
+000E:  MOVFF  FE0,06
+0012:  MOVLB  0
+0014:  MOVFF  FE9,0C
+0018:  MOVFF  FEA,07
+001C:  MOVFF  FE1,08
+0020:  MOVFF  FE2,09
+0024:  MOVFF  FD9,0A
+0028:  MOVFF  FDA,0B
+002C:  MOVFF  FF3,12
+0030:  MOVFF  FF4,13
+0034:  MOVFF  FFA,14
+0038:  MOVFF  00,0E
+003C:  MOVFF  01,0F
+0040:  MOVFF  02,10
+0044:  MOVFF  03,11
+0048:  BTFSS  FF2.5
+004A:  GOTO   0054
+004E:  BTFSC  FF2.2
+0050:  GOTO   00AE
+0054:  BTFSS  F9D.0
+0056:  GOTO   0060
+005A:  BTFSC  F9E.0
+005C:  GOTO   0124
+0060:  BTFSS  FF0.4
+0062:  GOTO   006C
+0066:  BTFSC  FF0.1
+0068:  GOTO   0216
+006C:  MOVFF  0E,00
+0070:  MOVFF  0F,01
+0074:  MOVFF  10,02
+0078:  MOVFF  11,03
+007C:  MOVFF  0C,FE9
+0080:  MOVFF  07,FEA
+0084:  BSF    07.7
+0086:  MOVFF  08,FE1
+008A:  MOVFF  09,FE2
+008E:  MOVFF  0A,FD9
+0092:  MOVFF  0B,FDA
+0096:  MOVFF  12,FF3
+009A:  MOVFF  13,FF4
+009E:  MOVFF  14,FFA
+00A2:  MOVF   04,W
+00A4:  MOVFF  06,FE0
+00A8:  MOVFF  05,FD8
+00AC:  RETFIE 0
+.................... #include <18F4550.h> 
+.................... //////// Standard Header file for the PIC18F4550 device //////////////// 
+.................... #device PIC18F4550 
+*
+05A8:  MOVF   38,W
+05AA:  CLRF   01
+05AC:  SUBWF  37,W
+05AE:  BC    05B6
+05B0:  MOVFF  37,00
+05B4:  BRA    05CE
+05B6:  CLRF   00
+05B8:  MOVLW  08
+05BA:  MOVWF  39
+05BC:  RLCF   37,F
+05BE:  RLCF   00,F
+05C0:  MOVF   38,W
+05C2:  SUBWF  00,W
+05C4:  BTFSC  FD8.0
+05C6:  MOVWF  00
+05C8:  RLCF   01,F
+05CA:  DECFSZ 39,F
+05CC:  BRA    05BC
+05CE:  RETURN 0
+....................  
+.................... #list 
+....................  
+.................... #fuses HSPLL,NOWDT,NOPROTECT,NOLVP,NODEBUG,USBDIV,PLL2,CPUDIV1,VREGEN,NOBROWNOUT     // 8MHZ 
+.................... //#fuses HSPLL,USBDIV,PLL5,CPUDIV1,VREGEN,NOWDT,NOPROTECT,NOLVP,NODEBUG,NOBROWNOUT   // 20 MHZ 
+.................... #use delay(clock=48000000) 
+*
+052A:  CLRF   FEA
+052C:  MOVLW  38
+052E:  MOVWF  FE9
+0530:  MOVF   FEF,W
+0532:  BZ    0550
+0534:  MOVLW  0F
+0536:  MOVWF  01
+0538:  CLRF   00
+053A:  DECFSZ 00,F
+053C:  BRA    053A
+053E:  DECFSZ 01,F
+0540:  BRA    0538
+0542:  MOVLW  8F
+0544:  MOVWF  00
+0546:  DECFSZ 00,F
+0548:  BRA    0546
+054A:  NOP   
+054C:  DECFSZ FEF,F
+054E:  BRA    0534
+0550:  RETURN 0
+0552:  MOVLW  01
+0554:  SUBWF  37,F
+0556:  BNC   0570
+0558:  CLRF   FEA
+055A:  MOVLW  37
+055C:  MOVWF  FE9
+055E:  MOVF   FEF,W
+0560:  BZ    0570
+0562:  MOVLW  02
+0564:  MOVWF  00
+0566:  DECFSZ 00,F
+0568:  BRA    0566
+056A:  BRA    056C
+056C:  DECFSZ FEF,F
+056E:  BRA    0562
+0570:  GOTO   05A4 (RETURN)
+....................  
+....................  
+.................... #include "lib_rf2gh4_10_4550.h" // Librería modificada para el el nRF24L01 con el PIC 18F4550. 
+.................... // PORTB 
+.................... #define   RF_IRQ      PIN_B2 
+.................... #define   RF_IRQ_TRIS TRISB,2 
+....................  
+.................... // PORTC 
+.................... #define   RF_CS       PIN_C1 
+.................... #define   RF_CE       PIN_C2 
+.................... #define   SCK         PIN_B1 
+.................... #define   SDI         PIN_B0 
+.................... #define   SDO         PIN_C7  
+....................                        
+.................... #define   RF_CS_TRIS  TRISC,1 
+.................... #define   RF_CE_TRIS  TRISC,2 
+.................... #define   SCK_TRIS    TRISB,1 
+.................... #define   SDI_TRIS    TRISB,0 
+.................... #define   SDO_TRIS    TRISC,7 
+....................  
+.................... //***************** 
+.................... //*   VARIABLES   * 
+.................... //***************** 
+.................... #BYTE TRISA     =  0xF92  // Dirección de los TRIS. 
+.................... #BYTE TRISB     =  0xF93 
+.................... #BYTE TRISC     =  0xF94 
+.................... #BYTE TRISD     =  0xF95 
+.................... #BYTE TRISE     =  0xf96 
+.................... #BYTE INTCON    =  0xFF2  // Registro de interrupciones. Sólo es importante el bit 7, GIE=interrupciones globales. 
+....................  
+.................... //Variables internas 
+.................... static int1        interRF; 
+.................... static int16       noRF; 
+.................... static int1        RCVNW=0; 
+.................... static int8        DATA_N_SND=0; 
+.................... static int8        DATA_N_RCV=0; 
+....................  
+.................... //Variables configurables 
+.................... static int8        RF_DATA[8]; 
+.................... static int8        RF_DIR; 
+....................  
+....................  
+.................... //************** 
+.................... //*   CÓDIGO   * 
+.................... //************** 
+....................  
+.................... //***************************************************** 
+.................... //*               RF_CONFIG_SPI()                     * 
+.................... //***************************************************** 
+.................... //*Descripción: La función configura el módulo SPI del* 
+.................... //*microcontrolador.En ella se especifica como salida * 
+.................... //*SDO y como entrada SDI entre otros parámetros del  * 
+.................... //*protocolo SPI.                                     * 
+.................... //***************************************************** 
+.................... //*Variables de entrada:                              * 
+.................... //*Variables de salida:                               * 
+.................... //***************************************************** 
+.................... void RF_CONFIG_SPI() 
+.................... { 
+....................    //Configuración I/O. 
+....................    bit_clear(SCK_TRIS); 
+*
+0308:  BCF    F93.1
+....................    bit_set(SDI_TRIS); 
+030A:  BSF    F93.0
+....................    bit_clear(SDO_TRIS); 
+030C:  BCF    F94.7
+....................  
+....................    //Configuración módulo comunicaciones. 
+....................    setup_spi(SPI_MASTER|SPI_L_TO_H|SPI_XMIT_L_TO_H|SPI_CLK_DIV_16|SPI_SAMPLE_AT_END);  // <--------------- Original: setup_spi(SPI_MASTER|SPI_L_TO_H|SPI_XMIT_L_TO_H|SPI_CLK_DIV_4|SPI_SAMPLE_AT_END); Lo cambio porque el cristal está configurado para 48MHz y es mucha velocidad para el transceptor. Cuando todo te vaya bien prueba a poner menos división. 
+030E:  BCF    FC6.5
+0310:  BCF    F94.7
+0312:  BSF    F93.0
+0314:  BCF    F93.1
+0316:  MOVLW  21
+0318:  MOVWF  FC6
+031A:  MOVLW  C0
+031C:  MOVWF  FC7
+031E:  GOTO   0612 (RETURN)
+.................... } 
+.................... //***************************************************** 
+....................  
+....................  
+....................  
+....................  
+....................  
+.................... //***************************************************** 
+.................... //*                    RF_INT_EN()                    * 
+.................... //***************************************************** 
+.................... //*Descripción:Se encarga de habilitar la interrupción* 
+.................... //*externa (RB0) utilizada por el módulo de RF en la  * 
+.................... //*recepción de datos.                                * 
+.................... //***************************************************** 
+.................... //*Variables de entrada:                              * 
+.................... //*Variables de salida:                               * 
+.................... //***************************************************** 
+.................... void RF_INT_EN() 
+.................... { 
+....................    //Habilitar interrupciones externas con flanco de bajada. 
+....................    disable_interrupts(global); 
+*
+02F2:  BCF    FF2.6
+02F4:  BCF    FF2.7
+02F6:  BTFSC  FF2.7
+02F8:  BRA    02F4
+....................    enable_interrupts(int_ext2); 
+02FA:  BSF    FF0.4
+....................    ext_int_edge(2, H_TO_L ); 
+02FC:  BCF    FF1.4
+....................    bit_set(RF_IRQ_TRIS); 
+02FE:  BSF    F93.2
+....................    enable_interrupts(global); 
+0300:  MOVLW  C0
+0302:  IORWF  FF2,F
+0304:  GOTO   0610 (RETURN)
+.................... } 
+.................... //***************************************************** 
+....................  
+....................  
+....................  
+....................  
+....................  
+.................... //***************************************************** 
+.................... //*        RF_CONFIG(int canal, int dir)              * 
+.................... //***************************************************** 
+.................... //*Descripción:Esta función se encarga de configurar  * 
+.................... //*el transceptor habilitando su propia dirección de  * 
+.................... //*escucha y el canal entre otros parámetros.         * 
+.................... //***************************************************** 
+.................... //*Variables de entrada:- Canal                       * 
+.................... //*                     - Direccion                   * 
+.................... //*Variables de salida:                               * 
+.................... //***************************************************** 
+.................... void RF_CONFIG(int canal, int dir) 
+.................... { 
+....................  
+....................    bit_clear(RF_CS_TRIS); 
+*
+0322:  BCF    F94.1
+....................    bit_set(RF_IRQ_TRIS); 
+0324:  BSF    F93.2
+....................    bit_clear(RF_CE_TRIS); 
+0326:  BCF    F94.2
+....................  
+....................    output_low(RF_CE); 
+0328:  BCF    F94.2
+032A:  BCF    F8B.2
+....................  
+....................    // TX_ADDR (0xFF) 
+....................    //Configuración de la dirección de envío aleatoria. 
+....................    //En la función de enviar se configura la dirección 
+....................    //deseada por el usuario. 
+....................    output_low(RF_CS); 
+032C:  BCF    F94.1
+032E:  BCF    F8B.1
+....................    spi_write(0x30); 
+0330:  MOVF   FC9,W
+0332:  MOVLW  30
+0334:  MOVWF  FC9
+0336:  RRCF   FC7,W
+0338:  BNC   0336
+....................    spi_write(0xFF); 
+033A:  MOVF   FC9,W
+033C:  SETF   FC9
+033E:  RRCF   FC7,W
+0340:  BNC   033E
+....................    spi_write(0xC2); 
+0342:  MOVF   FC9,W
+0344:  MOVLW  C2
+0346:  MOVWF  FC9
+0348:  RRCF   FC7,W
+034A:  BNC   0348
+....................    spi_write(0xC2); 
+034C:  MOVF   FC9,W
+034E:  MOVLW  C2
+0350:  MOVWF  FC9
+0352:  RRCF   FC7,W
+0354:  BNC   0352
+....................    spi_write(0xC2); 
+0356:  MOVF   FC9,W
+0358:  MOVLW  C2
+035A:  MOVWF  FC9
+035C:  RRCF   FC7,W
+035E:  BNC   035C
+....................    spi_write(0xC2); 
+0360:  MOVF   FC9,W
+0362:  MOVLW  C2
+0364:  MOVWF  FC9
+0366:  RRCF   FC7,W
+0368:  BNC   0366
+....................    output_high(RF_CS); 
+036A:  BCF    F94.1
+036C:  BSF    F8B.1
+....................  
+....................    // RX_ADDR_P0 (0xFF) ACK 
+....................    //Configuración de la direccióndel Pipe0 para la 
+....................    //recepción de ACK. 
+....................    output_low(RF_CS); 
+036E:  BCF    F94.1
+0370:  BCF    F8B.1
+....................    spi_write(0x2A); 
+0372:  MOVF   FC9,W
+0374:  MOVLW  2A
+0376:  MOVWF  FC9
+0378:  RRCF   FC7,W
+037A:  BNC   0378
+....................    spi_write(0xFF); 
+037C:  MOVF   FC9,W
+037E:  SETF   FC9
+0380:  RRCF   FC7,W
+0382:  BNC   0380
+....................    spi_write(0xC2); 
+0384:  MOVF   FC9,W
+0386:  MOVLW  C2
+0388:  MOVWF  FC9
+038A:  RRCF   FC7,W
+038C:  BNC   038A
+....................    spi_write(0xC2); 
+038E:  MOVF   FC9,W
+0390:  MOVLW  C2
+0392:  MOVWF  FC9
+0394:  RRCF   FC7,W
+0396:  BNC   0394
+....................    spi_write(0xC2); 
+0398:  MOVF   FC9,W
+039A:  MOVLW  C2
+039C:  MOVWF  FC9
+039E:  RRCF   FC7,W
+03A0:  BNC   039E
+....................    spi_write(0xC2); 
+03A2:  MOVF   FC9,W
+03A4:  MOVLW  C2
+03A6:  MOVWF  FC9
+03A8:  RRCF   FC7,W
+03AA:  BNC   03A8
+....................    output_high(RF_CS); 
+03AC:  BCF    F94.1
+03AE:  BSF    F8B.1
+....................  
+....................    // RX_ADDR_P1 (dir) 
+....................    //Configuración de la direccióndel Pipe1 para la 
+....................    //recepción de tramas. 
+....................    output_low(RF_CS); 
+03B0:  BCF    F94.1
+03B2:  BCF    F8B.1
+....................    spi_write(0x2B); 
+03B4:  MOVF   FC9,W
+03B6:  MOVLW  2B
+03B8:  MOVWF  FC9
+03BA:  RRCF   FC7,W
+03BC:  BNC   03BA
+....................    spi_write(dir); 
+03BE:  MOVF   FC9,W
+03C0:  MOVFF  38,FC9
+03C4:  RRCF   FC7,W
+03C6:  BNC   03C4
+....................    spi_write(0xC2); 
+03C8:  MOVF   FC9,W
+03CA:  MOVLW  C2
+03CC:  MOVWF  FC9
+03CE:  RRCF   FC7,W
+03D0:  BNC   03CE
+....................    spi_write(0xC2); 
+03D2:  MOVF   FC9,W
+03D4:  MOVLW  C2
+03D6:  MOVWF  FC9
+03D8:  RRCF   FC7,W
+03DA:  BNC   03D8
+....................    spi_write(0xC2); 
+03DC:  MOVF   FC9,W
+03DE:  MOVLW  C2
+03E0:  MOVWF  FC9
+03E2:  RRCF   FC7,W
+03E4:  BNC   03E2
+....................    spi_write(0xC2); 
+03E6:  MOVF   FC9,W
+03E8:  MOVLW  C2
+03EA:  MOVWF  FC9
+03EC:  RRCF   FC7,W
+03EE:  BNC   03EC
+....................    output_high(RF_CS); 
+03F0:  BCF    F94.1
+03F2:  BSF    F8B.1
+....................  
+....................    // RX_ADDR_P2 (0x00) BROADCAST 
+....................    //Configuración de la direccióndel Pipe2 para la 
+....................    //recepción de tramas 
+....................    output_low(RF_CS); 
+03F4:  BCF    F94.1
+03F6:  BCF    F8B.1
+....................    spi_write(0x2C); 
+03F8:  MOVF   FC9,W
+03FA:  MOVLW  2C
+03FC:  MOVWF  FC9
+03FE:  RRCF   FC7,W
+0400:  BNC   03FE
+....................    spi_write(0x00); 
+0402:  MOVF   FC9,W
+0404:  CLRF   FC9
+0406:  RRCF   FC7,W
+0408:  BNC   0406
+....................    output_high(RF_CS); 
+040A:  BCF    F94.1
+040C:  BSF    F8B.1
+....................  
+....................    // EN_AA 
+....................    //Habilitar AutoAck en los Pipe0,Pipe1 y Pipe2. 
+....................    output_low(RF_CS); 
+040E:  BCF    F94.1
+0410:  BCF    F8B.1
+....................    spi_write(0x21); 
+0412:  MOVF   FC9,W
+0414:  MOVLW  21
+0416:  MOVWF  FC9
+0418:  RRCF   FC7,W
+041A:  BNC   0418
+....................    spi_write(0x07); 
+041C:  MOVF   FC9,W
+041E:  MOVLW  07
+0420:  MOVWF  FC9
+0422:  RRCF   FC7,W
+0424:  BNC   0422
+....................    output_high(RF_CS); 
+0426:  BCF    F94.1
+0428:  BSF    F8B.1
+....................  
+....................    // EN_RXADDR 
+....................    //Habilitar los Pipe0,Pipe1 y Pipe2. 
+....................    output_low(RF_CS); 
+042A:  BCF    F94.1
+042C:  BCF    F8B.1
+....................    spi_write(0x22); 
+042E:  MOVF   FC9,W
+0430:  MOVLW  22
+0432:  MOVWF  FC9
+0434:  RRCF   FC7,W
+0436:  BNC   0434
+....................    spi_write(0x07); 
+0438:  MOVF   FC9,W
+043A:  MOVLW  07
+043C:  MOVWF  FC9
+043E:  RRCF   FC7,W
+0440:  BNC   043E
+....................    output_high(RF_CS); 
+0442:  BCF    F94.1
+0444:  BSF    F8B.1
+....................  
+....................    // SETUP_AW 
+....................    //Configuración de la longitud de las direcciones. 
+....................    //Direcciones de 5 bytes. 
+....................    output_low(RF_CS); 
+0446:  BCF    F94.1
+0448:  BCF    F8B.1
+....................    spi_write(0x23); 
+044A:  MOVF   FC9,W
+044C:  MOVLW  23
+044E:  MOVWF  FC9
+0450:  RRCF   FC7,W
+0452:  BNC   0450
+....................    spi_write(0x03); 
+0454:  MOVF   FC9,W
+0456:  MOVLW  03
+0458:  MOVWF  FC9
+045A:  RRCF   FC7,W
+045C:  BNC   045A
+....................    output_high(RF_CS); 
+045E:  BCF    F94.1
+0460:  BSF    F8B.1
+....................  
+....................    //SETUP_RETR 
+....................    //Configuración de las retrasmisiones en la transmisión. 
+....................    //Diez retransmisiones cada 336us. 
+....................    output_low(RF_CS); 
+0462:  BCF    F94.1
+0464:  BCF    F8B.1
+....................    spi_write(0x24); 
+0466:  MOVF   FC9,W
+0468:  MOVLW  24
+046A:  MOVWF  FC9
+046C:  RRCF   FC7,W
+046E:  BNC   046C
+....................    spi_write(0x0A); 
+0470:  MOVF   FC9,W
+0472:  MOVLW  0A
+0474:  MOVWF  FC9
+0476:  RRCF   FC7,W
+0478:  BNC   0476
+....................    output_high(RF_CS); 
+047A:  BCF    F94.1
+047C:  BSF    F8B.1
+....................  
+....................    //RF_CH 
+....................    //Configuración del canal. 
+....................    //Canal elegido por el usuario (0x01 - 0x7F). 
+....................    output_low(RF_CS); 
+047E:  BCF    F94.1
+0480:  BCF    F8B.1
+....................    spi_write(0x25); 
+0482:  MOVF   FC9,W
+0484:  MOVLW  25
+0486:  MOVWF  FC9
+0488:  RRCF   FC7,W
+048A:  BNC   0488
+....................    spi_write(canal); 
+048C:  MOVF   FC9,W
+048E:  MOVFF  37,FC9
+0492:  RRCF   FC7,W
+0494:  BNC   0492
+....................    output_high(RF_CS); 
+0496:  BCF    F94.1
+0498:  BSF    F8B.1
+....................  
+....................    //RF_SETUP 
+....................    //Configuración aspectos RF. ******************************************************************************************* 
+....................    //Ganancia máxima de LNA, 0dBm potencia de salida y 1Mbps de velocidad. ************************************************ 
+....................    output_low(RF_CS); 
+049A:  BCF    F94.1
+049C:  BCF    F8B.1
+....................    spi_write(0x26); 
+049E:  MOVF   FC9,W
+04A0:  MOVLW  26
+04A2:  MOVWF  FC9
+04A4:  RRCF   FC7,W
+04A6:  BNC   04A4
+....................    spi_write(0x07);    // Lo he cambiado a 1Mbps. Originalmente era "0x0F" ----> (2Mbps). 
+04A8:  MOVF   FC9,W
+04AA:  MOVLW  07
+04AC:  MOVWF  FC9
+04AE:  RRCF   FC7,W
+04B0:  BNC   04AE
+....................    output_high(RF_CS); 
+04B2:  BCF    F94.1
+04B4:  BSF    F8B.1
+....................  
+....................    //STATUS 
+....................    //Reseteo del registro STATUS 
+....................    output_low(RF_CS); 
+04B6:  BCF    F94.1
+04B8:  BCF    F8B.1
+....................    spi_write(0x27); 
+04BA:  MOVF   FC9,W
+04BC:  MOVLW  27
+04BE:  MOVWF  FC9
+04C0:  RRCF   FC7,W
+04C2:  BNC   04C0
+....................    spi_write(0x70); 
+04C4:  MOVF   FC9,W
+04C6:  MOVLW  70
+04C8:  MOVWF  FC9
+04CA:  RRCF   FC7,W
+04CC:  BNC   04CA
+....................    output_high(RF_CS); 
+04CE:  BCF    F94.1
+04D0:  BSF    F8B.1
+....................  
+....................    //RX_PW_P0 
+....................    //Nº de bytes en Pipe0. 
+....................    //1 byte (ACK). 
+....................    output_low(RF_CS); 
+04D2:  BCF    F94.1
+04D4:  BCF    F8B.1
+....................    spi_write(0x31); 
+04D6:  MOVF   FC9,W
+04D8:  MOVLW  31
+04DA:  MOVWF  FC9
+04DC:  RRCF   FC7,W
+04DE:  BNC   04DC
+....................    spi_write(0x01); 
+04E0:  MOVF   FC9,W
+04E2:  MOVLW  01
+04E4:  MOVWF  FC9
+04E6:  RRCF   FC7,W
+04E8:  BNC   04E6
+....................    output_high(RF_CS); 
+04EA:  BCF    F94.1
+04EC:  BSF    F8B.1
+....................  
+....................    //RX_PW_P1 
+....................    //Nº de bytes en Pipe1. 
+....................    //10 byte (Direccion emisor y trama). 
+....................    output_low(RF_CS); 
+04EE:  BCF    F94.1
+04F0:  BCF    F8B.1
+....................    spi_write(0x32); 
+04F2:  MOVF   FC9,W
+04F4:  MOVLW  32
+04F6:  MOVWF  FC9
+04F8:  RRCF   FC7,W
+04FA:  BNC   04F8
+....................    spi_write(0x0A); 
+04FC:  MOVF   FC9,W
+04FE:  MOVLW  0A
+0500:  MOVWF  FC9
+0502:  RRCF   FC7,W
+0504:  BNC   0502
+....................    output_high(RF_CS); 
+0506:  BCF    F94.1
+0508:  BSF    F8B.1
+....................  
+....................    //RX_PW_P2 
+....................    //Nº de bytes en Pipe2. 
+....................    //10 byte (Direccion emisor y trama). 
+....................    output_low(RF_CS); 
+050A:  BCF    F94.1
+050C:  BCF    F8B.1
+....................    spi_write(0x33); 
+050E:  MOVF   FC9,W
+0510:  MOVLW  33
+0512:  MOVWF  FC9
+0514:  RRCF   FC7,W
+0516:  BNC   0514
+....................    spi_write(0x0A); 
+0518:  MOVF   FC9,W
+051A:  MOVLW  0A
+051C:  MOVWF  FC9
+051E:  RRCF   FC7,W
+0520:  BNC   051E
+....................    output_high(RF_CS); 
+0522:  BCF    F94.1
+0524:  BSF    F8B.1
+0526:  GOTO   061C (RETURN)
+.................... } 
+.................... //***************************************************** 
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+.................... //***************************************************** 
+.................... //*                    RF_ON()                         * 
+.................... //***************************************************** 
+.................... //*Descripción:Esta rutina activa el módulo de        * 
+.................... //*radiofrecuencia en modo escucha para poder recibir * 
+.................... //*datos enviados a su dirección.                     * 
+.................... //***************************************************** 
+.................... //*Variables de entrada:                              * 
+.................... //*Variables de salida:                               * 
+.................... //***************************************************** 
+.................... void RF_ON() 
+.................... { 
+....................  
+....................    output_low(RF_CE); 
+*
+0574:  BCF    F94.2
+0576:  BCF    F8B.2
+....................  
+....................    // CONFIG 
+....................    //Se activa el modulo, se pone en recepción, 
+....................    //se activa el CRC para que utilice 2 bytes. 
+....................    output_low(RF_CS); 
+0578:  BCF    F94.1
+057A:  BCF    F8B.1
+....................    spi_write(0x20); 
+057C:  MOVF   FC9,W
+057E:  MOVLW  20
+0580:  MOVWF  FC9
+0582:  RRCF   FC7,W
+0584:  BNC   0582
+....................    spi_write(0x0F); 
+0586:  MOVF   FC9,W
+0588:  MOVLW  0F
+058A:  MOVWF  FC9
+058C:  RRCF   FC7,W
+058E:  BNC   058C
+....................    output_high(RF_CS); 
+0590:  BCF    F94.1
+0592:  BSF    F8B.1
+....................  
+....................    delay_ms(2); 
+0594:  MOVLW  02
+0596:  MOVWF  38
+0598:  RCALL  052A
+....................    output_high(RF_CE); 
+059A:  BCF    F94.2
+059C:  BSF    F8B.2
+....................    delay_us(150); 
+059E:  MOVLW  96
+05A0:  MOVWF  37
+05A2:  BRA    0552
+05A4:  GOTO   061E (RETURN)
+.................... } 
+.................... //***************************************************** 
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+.................... //***************************************************** 
+.................... //*                 RF_OFF()                         * 
+.................... //***************************************************** 
+.................... //*Descripción:Este procedimiento desactiva el módulo * 
+.................... //*de radiofrecuencia.                                * 
+.................... //***************************************************** 
+.................... //*Variables de entrada:                              * 
+.................... //*Variables de salida:                               * 
+.................... //***************************************************** 
+.................... void RF_OFF() 
+.................... { 
+....................    output_low(RF_CE); 
+....................  
+....................    // CONFIG 
+....................    //Se desactiva el modulo 
+....................    output_low(RF_CS); 
+....................    spi_write(0x20); 
+....................    spi_write(0x0C); 
+....................    output_high(RF_CS); 
+.................... } 
+.................... //***************************************************** 
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+.................... //***************************************************** 
+.................... //*                 RF_SEND()                         * 
+.................... //***************************************************** 
+.................... //*Descripción:Esta función envía 8 Bytes de datos a  * 
+.................... //*la dirección indicada informando de la correcta    * 
+.................... //*recepción en el destinatario.                      * 
+.................... //***************************************************** 
+.................... //*Variables de entrada:- RF_DATA[]                   * 
+.................... //*                     - RF_DIR 
+.................... //*Variables de salida: -                             * 
+.................... //*Salida:              - 0: Envío correcto (ACK OK)  * 
+.................... //*                     - 1: No recepcibido (NO ACK)  * 
+.................... //*                     - 2: No enviado               * 
+.................... //***************************************************** 
+.................... int RF_SEND() 
+.................... { 
+....................    int i; 
+....................    int estado; 
+....................  
+....................  
+....................    if(bit_test(INTCON,7)) 
+....................       interRF=1; 
+....................    else 
+....................       interRF=0; 
+....................  
+....................    disable_interrupts(GLOBAL); 
+....................  
+....................    // INICIO 
+....................    output_low(RF_CE); 
+....................  
+....................    //STATUS 
+....................    //Reseteo del registro STATUS 
+....................    output_low(RF_CS); 
+....................    spi_write(0x27); 
+....................    spi_write(0x70); 
+....................    output_high(RF_CS); 
+....................  
+....................    // EN_RXADDR 
+....................    //Se habilita el Pipe0 para la recepción del ACK 
+....................    output_low(RF_CS); 
+....................    spi_write(0x22); 
+....................    spi_write(0x01); 
+....................    output_high(RF_CS); 
+....................  
+....................    // TX_ADDR 
+....................    //Se configura la dirección de transmisión=RF_DIR 
+....................    output_low(RF_CS); 
+....................    spi_write(0x30); 
+....................    spi_write(RF_DIR); 
+....................    spi_write(0xC2); 
+....................    spi_write(0xC2); 
+....................    spi_write(0xC2); 
+....................    spi_write(0xC2); 
+....................    output_high(RF_CS); 
+....................  
+....................    // RX_ADDR_P0 
+....................    //Para la recepción del ACK se debe configurar el Pipe0 con 
+....................    //la misma dirección a trasmitir. 
+....................    output_low(RF_CS); 
+....................    spi_write(0x2A); 
+....................    spi_write(RF_DIR); 
+....................    spi_write(0xC2); 
+....................    spi_write(0xC2); 
+....................    spi_write(0xC2); 
+....................    spi_write(0xC2); 
+....................    output_high(RF_CS); 
+....................  
+....................    // RX_ADDR_P1 
+....................    //Se mete en RF_DIR la direccion propia. 
+....................    //De esta manera el receptor sabe la dirección 
+....................    //del transmisor. 
+....................    output_low(RF_CS); 
+....................    spi_write(0x0B); 
+....................    RF_DIR=spi_read(0); 
+....................    spi_read(0); 
+....................    spi_read(0); 
+....................    spi_read(0); 
+....................    spi_read(0); 
+....................    output_high(RF_CS); 
+....................  
+....................    // W_TX_PAYLOAD 
+....................    //Se manda los datos al transductor 
+....................    output_low(RF_CS); 
+....................    spi_write(0xA0); 
+....................  
+....................    DATA_N_SND++; 
+....................    spi_write(DATA_N_SND); 
+....................    spi_write(RF_DIR); 
+....................    for (i=0;i<8;i++) 
+....................    { 
+....................       spi_write(RF_DATA[i]); 
+....................    } 
+....................    output_high(RF_CS); 
+....................  
+....................    // CONFIG 
+....................    //Se pasa a modo transmisión. 
+....................    output_low(RF_CS); 
+....................    spi_write(0x20); 
+....................    spi_write(0x0E); 
+....................    output_high(RF_CS); 
+....................  
+....................    // Pulso de comienzo de envío 
+....................    output_high(RF_CE); 
+....................    delay_us(15); 
+....................    output_low(RF_CE); 
+....................  
+....................    noRF=0; 
+....................  
+....................    while (input(RF_IRQ)==1) { 
+....................       noRF++; 
+....................       //Si no da respuesta en 7ms, no se ha enviado. 
+....................       if(noRF>6000) { break; }                                                 // (A) --------> El valor era de 500 y lo he cambiado a 6000 (500*12=6000) porque la velocidad del clock actual es de 48MHZ y originalmente era de 4MHz. (A) y (B) han de tener el mismo valor. 
+....................    } 
+....................  
+....................  
+....................    // STATUS 
+....................    //Lectura del estado en el registro estatus. 
+....................    output_low(RF_CS); 
+....................    estado=spi_read(0x27); 
+....................    spi_write(0x70); 
+....................    output_high(RF_CS); 
+....................  
+....................  
+....................    // EN_RXADDR 
+....................    //Habilitar los Pipe0,Pipe1 y Pipe2. 
+....................    output_low(RF_CS); 
+....................    spi_write(0x22); 
+....................    spi_write(0x07); 
+....................    output_high(RF_CS); 
+....................  
+....................       // TX_FLUSH 
+....................    //Limpieza de la FIFO de salida 
+....................    output_low(RF_CS); 
+....................    spi_write(0xE1); 
+....................    output_high(RF_CS); 
+....................  
+....................    // CONFIG 
+....................    //Paso a modo recepción 
+....................    output_low(RF_CS); 
+....................    spi_write(0x20); 
+....................    spi_write(0x0F); 
+....................    output_high(RF_CS); 
+....................  
+....................    // FIN 
+....................    output_high(RF_CE); 
+....................  
+....................    delay_us(150); 
+....................  
+....................    //Si no da respuesta en 7ms, no se ha enviado. 
+....................    if(noRF>6000)                                                               // (B) --------> El valor era de 500 y lo he cambiado a 6000 (500*12=6000) porque la velocidad del clock actual es de 48MHZ y originalmente era de 4MHz. (A) y (B) han de tener el mismo valor. 
+....................    { 
+....................         if(interRF==1) 
+....................         enable_interrupts(GLOBAL); 
+....................         clear_interrupt(int_ext2);                                             // <----------- Original: clear_interrupt(int_ext); Lo cambié para la INT EXT 2 (B2) del 18F4550. 
+....................         return(2); 
+....................    } 
+....................  
+....................    //estado 
+....................    //Chequeo de los bit del registro STATUS que indican si se ha recibido 
+....................    //ACK y si se ha terminado las retrasmisiones sin ningun ACK. 
+....................    if ((bit_test(estado,4)==0) && (bit_test(estado,5)==1)){ 
+....................       if(interRF==1) 
+....................       enable_interrupts(GLOBAL); 
+....................       clear_interrupt(int_ext2);                                               // <----------- Original: clear_interrupt(int_ext); Lo cambié para la INT EXT 2 (B2) del 18F4550. 
+....................       return(0); 
+....................       } 
+....................    else{ 
+....................       if(interRF==1) 
+....................       enable_interrupts(GLOBAL); 
+....................       clear_interrupt(int_ext2);                                               // <----------- Original: clear_interrupt(int_ext); Lo cambié para la INT EXT 2 (B2) del 18F4550. 
+....................       return(1); 
+....................       } 
+.................... } 
+.................... //***************************************************** 
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+....................  
+.................... //***************************************************** 
+.................... //*                 RF_RECEIVE()                      * 
+.................... //***************************************************** 
+.................... //*Descripción: Esta rutina se encarga de comprobar si* 
+.................... //*se ha producido una recepción y de ser así,        * 
+.................... //*devuelve la trama recibida.                        * 
+.................... //***************************************************** 
+.................... //*Variables de entrada:-                             * 
+.................... //*Variables de salida: - RF_DATA[]                   * 
+.................... //*                     - RF_DIR                      * 
+.................... //*Salida:         - 0: Recepción correcta y única    * 
+.................... //*                - 1: Recepción correcta y múltiple * 
+.................... //*                - 2: No se ha producido recepción  * 
+.................... //*                - 3: No se ha producido recepción  * 
+.................... //***************************************************** 
+.................... int RF_RECEIVE() 
+.................... { 
+....................  
+....................    int i; 
+....................    int mas; 
+....................    int estado; 
+....................  
+....................    if (input(RF_IRQ)==1 && RCVNW==0){ 
+*
+0156:  BSF    F93.2
+0158:  BTFSS  F81.2
+015A:  BRA    0166
+015C:  BTFSC  16.1
+015E:  BRA    0166
+....................       return (2); 
+0160:  MOVLW  02
+0162:  MOVWF  01
+0164:  BRA    0214
+....................       } 
+....................  
+....................    //STATUS 
+....................    //Lectura y reseteo del registro STATUS 
+....................    output_low(RF_CS); 
+0166:  BCF    F94.1
+0168:  BCF    F8B.1
+....................    estado=spi_read(0x27); 
+016A:  MOVF   FC9,W
+016C:  MOVLW  27
+016E:  MOVWF  FC9
+0170:  RRCF   FC7,W
+0172:  BNC   0170
+0174:  MOVFF  FC9,3C
+....................    spi_write(0x70); 
+0178:  MOVF   FC9,W
+017A:  MOVLW  70
+017C:  MOVWF  FC9
+017E:  RRCF   FC7,W
+0180:  BNC   017E
+....................    output_high(RF_CS); 
+0182:  BCF    F94.1
+0184:  BSF    F8B.1
+....................  
+....................    //estado 
+....................    //Chequeo de la interrupción de recepción. 
+....................    if (bit_test(estado,6)==0 && RCVNW==0){ 
+0186:  BTFSC  3C.6
+0188:  BRA    0194
+018A:  BTFSC  16.1
+018C:  BRA    0194
+....................       return(3); 
+018E:  MOVLW  03
+0190:  MOVWF  01
+0192:  BRA    0214
+....................       } 
+....................  
+....................    //R_RX_PAYLOAD 
+....................    //Lectura de los datos recibidos. 
+....................    output_low(RF_CS); 
+0194:  BCF    F94.1
+0196:  BCF    F8B.1
+....................    spi_write(0x61); 
+0198:  MOVF   FC9,W
+019A:  MOVLW  61
+019C:  MOVWF  FC9
+019E:  RRCF   FC7,W
+01A0:  BNC   019E
+....................    DATA_N_RCV=spi_read(0); 
+01A2:  MOVF   FC9,W
+01A4:  CLRF   FC9
+01A6:  RRCF   FC7,W
+01A8:  BNC   01A6
+01AA:  MOVFF  FC9,1A
+....................    RF_DIR=spi_read(0); 
+01AE:  MOVF   FC9,W
+01B0:  CLRF   FC9
+01B2:  RRCF   FC7,W
+01B4:  BNC   01B2
+01B6:  MOVFF  FC9,23
+....................    for (i=0;i<8;i++) 
+01BA:  CLRF   3A
+01BC:  MOVF   3A,W
+01BE:  SUBLW  07
+01C0:  BNC   01E0
+....................    { 
+....................       RF_DATA[i]=spi_read(0); 
+01C2:  CLRF   03
+01C4:  MOVF   3A,W
+01C6:  ADDLW  1B
+01C8:  MOVWF  FE9
+01CA:  MOVLW  00
+01CC:  ADDWFC 03,W
+01CE:  MOVWF  FEA
+01D0:  MOVF   FC9,W
+01D2:  CLRF   FC9
+01D4:  RRCF   FC7,W
+01D6:  BNC   01D4
+01D8:  MOVFF  FC9,FEF
+01DC:  INCF   3A,F
+01DE:  BRA    01BC
+....................    } 
+....................    output_high(RF_CS); 
+01E0:  BCF    F94.1
+01E2:  BSF    F8B.1
+....................  
+....................    //FIFO_STATUS 
+....................    //Comprobación del estado de la FIFO de 
+....................    //recepción para comprobar si hay más datos 
+....................    output_low(RF_CS); 
+01E4:  BCF    F94.1
+01E6:  BCF    F8B.1
+....................    spi_write(0x17); 
+01E8:  MOVF   FC9,W
+01EA:  MOVLW  17
+01EC:  MOVWF  FC9
+01EE:  RRCF   FC7,W
+01F0:  BNC   01EE
+....................    mas=spi_read(0); 
+01F2:  MOVF   FC9,W
+01F4:  CLRF   FC9
+01F6:  RRCF   FC7,W
+01F8:  BNC   01F6
+01FA:  MOVFF  FC9,3B
+....................    output_high(RF_CS); 
+01FE:  BCF    F94.1
+0200:  BSF    F8B.1
+....................  
+....................    if (bit_test(mas,0)==0){ 
+0202:  BTFSC  3B.0
+0204:  BRA    020E
+....................       RCVNW=1; 
+0206:  BSF    16.1
+....................       return(1); 
+0208:  MOVLW  01
+020A:  MOVWF  01
+020C:  BRA    0214
+....................    } 
+....................       RCVNW=0; 
+020E:  BCF    16.1
+....................       return(0); 
+0210:  MOVLW  00
+0212:  MOVWF  01
+0214:  RETURN 0
+.................... } 
+.................... //***************************************************** 
+....................  
+....................  
+....................  
+.................... /*********************************/ 
+.................... #define servo_00     pin_d4 
+.................... #define servo_01    pin_d5 
+.................... #define servo_02    pin_d6 
+.................... #define servo_03    pin_d7 
+....................  
+.................... #define n 3                      // Servo Motor sayisini tutacak olan degisken 
+....................             
+....................  
+.................... #define max_theCount 200// 200*100us=20ms 
+.................... #define derecha  25// 25*100us=2,5ms 
+.................... #define centro   15// 15*100us=1,5ms 
+.................... #define izquierda 5// 5*100us =0,5ms 
+....................  
+.................... #define val_timer0 127 
+....................  
+.................... int8    theCount=1; 
+.................... int8    duty[n]; 
+....................  
+.................... #INT_TIMER0 
+.................... void isr_timer0(){ 
+....................    delay_cycles(5); 
+*
+00AE:  BRA    00B0
+00B0:  BRA    00B2
+00B2:  NOP   
+....................    if (duty[0] >= theCount) 
+00B4:  MOVF   24,W
+00B6:  SUBWF  25,W
+00B8:  BNC   00C0
+....................       { 
+....................       output_high(servo_00);  
+00BA:  BCF    F95.4
+00BC:  BSF    F8C.4
+....................       } 
+00BE:  BRA    00C6
+....................       else 
+....................       { 
+....................        
+....................           output_low(servo_00);  
+00C0:  BCF    F95.4
+00C2:  BCF    F8C.4
+....................          #asm 
+00C4:  NOP   
+....................             nop 
+....................          #endasm 
+....................       } 
+....................        
+....................       if (duty[1] >= theCount) 
+00C6:  MOVF   24,W
+00C8:  SUBWF  26,W
+00CA:  BNC   00D2
+....................       { 
+....................        output_high(servo_01);  
+00CC:  BCF    F95.5
+00CE:  BSF    F8C.5
+....................       } 
+00D0:  BRA    00D8
+....................       else 
+....................       { 
+....................          output_low(servo_01);  
+00D2:  BCF    F95.5
+00D4:  BCF    F8C.5
+....................          #asm 
+00D6:  NOP   
+....................             nop 
+....................          #endasm 
+....................       } 
+....................        
+....................        if (duty[2] >= theCount) 
+00D8:  MOVF   24,W
+00DA:  SUBWF  27,W
+00DC:  BNC   00E4
+....................       { 
+....................        output_high(servo_02);  
+00DE:  BCF    F95.6
+00E0:  BSF    F8C.6
+....................       } 
+00E2:  BRA    00EA
+....................       else 
+....................       { 
+....................          output_low(servo_02);  
+00E4:  BCF    F95.6
+00E6:  BCF    F8C.6
+....................          #asm 
+00E8:  NOP   
+....................             nop 
+....................          #endasm 
+....................       } 
+....................        
+....................        if (duty[3] >= theCount) 
+00EA:  MOVF   24,W
+00EC:  SUBWF  28,W
+00EE:  BNC   00F6
+....................       { 
+....................        output_high(servo_03);  
+00F0:  BCF    F95.7
+00F2:  BSF    F8C.7
+....................       } 
+00F4:  BRA    00FC
+....................       else 
+....................       { 
+....................          output_low(servo_03);  
+00F6:  BCF    F95.7
+00F8:  BCF    F8C.7
+....................          #asm 
+00FA:  NOP   
+....................             nop 
+....................          #endasm 
+....................       } 
+....................        
+....................       theCount=theCount+1; 
+00FC:  MOVLW  01
+00FE:  ADDWF  24,F
+....................       if (theCount>max_theCount) 
+0100:  MOVF   24,W
+0102:  SUBLW  C8
+0104:  BC    010C
+....................       { 
+....................          theCount=1; 
+0106:  MOVLW  01
+0108:  MOVWF  24
+....................       } 
+010A:  BRA    0118
+....................       else 
+....................       { 
+....................          delay_us(1); 
+010C:  MOVLW  03
+010E:  MOVWF  00
+0110:  DECFSZ 00,F
+0112:  BRA    0110
+0114:  BRA    0116
+....................          #asm 
+0116:  NOP   
+....................             nop 
+....................          #endasm 
+....................       } 
+....................       set_timer0(val_timer0); 
+0118:  CLRF   FD7
+011A:  MOVLW  7F
+011C:  MOVWF  FD6
+.................... } 
+....................  
+.................... /*************************************/ 
+....................  
+011E:  BCF    FF2.2
+0120:  GOTO   006C
+.................... #byte porta=0xF80               // Dirección de los puertos A, B, C, D y E. 
+.................... #byte portb=0xF81 
+.................... #byte portc=0xF82 
+.................... #byte portd=0xF83 
+.................... #byte porte=0xF84 
+....................  
+.................... //****** 
+.................... //#bit  a0=porta.0           // Un truco para más tarde hacer intercambios de bits. 
+....................  
+.................... int8 ret1; 
+.................... int8 pot_deger[7], out_deger; 
+.................... //#bit  b0=data.0            // Un truco para más tarde hacer intercambios de bits. 
+.................... //****** 
+....................  
+.................... unsigned int8 pwm_valA=0,pwm_valB=0,pwm_dutyA=0,pwm_dutyB=0; 
+....................  
+.................... #int_timer1 
+.................... void timer1_kesmesi() 
+.................... { 
+....................       
+....................       set_timer1(65185);//20mhz kristai ile 70usn 
+0124:  MOVLW  FE
+0126:  MOVWF  FCF
+0128:  MOVLW  A1
+012A:  MOVWF  FCE
+....................       if(++pwm_valA<pwm_dutyA)output_high(pin_a1); 
+012C:  INCF   31,F
+012E:  MOVF   33,W
+0130:  SUBWF  31,W
+0132:  BC    013A
+0134:  BCF    F92.1
+0136:  BSF    F89.1
+0138:  BRA    013E
+....................       else output_low(pin_a1); 
+013A:  BCF    F92.1
+013C:  BCF    F89.1
+....................       if(++pwm_valB<pwm_dutyB)output_high(pin_a2); 
+013E:  INCF   32,F
+0140:  MOVF   34,W
+0142:  SUBWF  32,W
+0144:  BC    014C
+0146:  BCF    F92.2
+0148:  BSF    F89.2
+014A:  BRA    0150
+....................       else output_low(pin_a2);       
+014C:  BCF    F92.2
+014E:  BCF    F89.2
+.................... }  
+....................  
+0150:  BCF    F9E.0
+0152:  GOTO   006C
+.................... #int_ext2                   
+.................... void int_RB2()               // Esta rutina está para un futuro si haces comunicaciones bidireccionales. 
+.................... {                            // No tiene efecto en el programa principal, ya que sólo emite. 
+.................... output_high(pin_a0); 
+*
+0216:  BCF    F92.0
+0218:  BSF    F89.0
+....................    ret1 = RF_RECEIVE(); 
+021A:  RCALL  0156
+021C:  MOVFF  01,28
+....................    if ( (ret1 == 0) || (ret1 == 1) ) 
+0220:  MOVF   28,F
+0222:  BZ    0228
+0224:  DECFSZ 28,W
+0226:  BRA    0258
+....................    { 
+....................       do 
+....................       {     
+....................          pot_deger[0]=RF_DATA[0];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0]. 
+0228:  MOVFF  1B,29
+....................            pot_deger[1]=RF_DATA[1];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0]. 
+022C:  MOVFF  1C,2A
+....................             pot_deger[2]=RF_DATA[2];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0]. 
+0230:  MOVFF  1D,2B
+....................              pot_deger[3]=RF_DATA[3];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0]. 
+0234:  MOVFF  1E,2C
+....................               pot_deger[4]=RF_DATA[4];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0]. 
+0238:  MOVFF  1F,2D
+....................                pot_deger[5]=RF_DATA[5];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0]. 
+023C:  MOVFF  20,2E
+....................                out_deger=RF_DATA[6]; 
+0240:  MOVFF  21,30
+....................                pot_deger[7]=RF_DATA[7]; 
+0244:  MOVFF  22,30
+....................          //porta=data;       // Lo que haya en data lo refleja en los LEDs. 
+....................          //a0=b0;            // Un truco para que RB0 sirva de interrupción y RA0 para poner el LED correspondiente. 
+....................          ret1 = RF_RECEIVE();  
+0248:  RCALL  0156
+024A:  MOVFF  01,28
+....................       } while ( (ret1 == 0) || (ret1 == 1) ); // Tanto si existe entrada múltiple o simple de datos los lee.  
+024E:  MOVF   28,F
+0250:  BZ    0228
+0252:  DECFSZ 28,W
+0254:  BRA    0258
+0256:  BRA    0228
+....................    } 
+....................     
+....................          pwm_dutyA=pot_deger[4];// soft pwm 
+0258:  MOVFF  2D,33
+....................          pwm_dutyB=pot_deger[4];// soft pwm 
+025C:  MOVFF  2D,34
+....................     
+....................     if(pot_deger[0]>150 && pot_deger[1]>90 && pot_deger[1]<140) 
+0260:  MOVF   29,W
+0262:  SUBLW  96
+0264:  BC    0282
+0266:  MOVF   2A,W
+0268:  SUBLW  5A
+026A:  BC    0282
+026C:  MOVF   2A,W
+026E:  SUBLW  8B
+0270:  BNC   0282
+....................     { 
+....................       output_high(pin_d0);  
+0272:  BCF    F95.0
+0274:  BSF    F8C.0
+....................       output_low(pin_d1);  
+0276:  BCF    F95.1
+0278:  BCF    F8C.1
+....................       output_high(pin_d2);  
+027A:  BCF    F95.2
+027C:  BSF    F8C.2
+....................       output_low(pin_d3);  
+027E:  BCF    F95.3
+0280:  BCF    F8C.3
+....................  
+....................     } 
+....................      if(pot_deger[0]<80 && pot_deger[1]>90 && pot_deger[1]<140) 
+0282:  MOVF   29,W
+0284:  SUBLW  4F
+0286:  BNC   02A4
+0288:  MOVF   2A,W
+028A:  SUBLW  5A
+028C:  BC    02A4
+028E:  MOVF   2A,W
+0290:  SUBLW  8B
+0292:  BNC   02A4
+....................     { 
+....................           output_low(pin_d0);  
+0294:  BCF    F95.0
+0296:  BCF    F8C.0
+....................           output_high(pin_d1);  
+0298:  BCF    F95.1
+029A:  BSF    F8C.1
+....................           output_low(pin_d2);  
+029C:  BCF    F95.2
+029E:  BCF    F8C.2
+....................           output_high(pin_d3);  
+02A0:  BCF    F95.3
+02A2:  BSF    F8C.3
+....................                  // pwm_dutyA=0;// soft pwm 
+....................     } 
+....................      
+....................      if(pot_deger[1]>150 && pot_deger[0]>90 && pot_deger[0]<140) 
+02A4:  MOVF   2A,W
+02A6:  SUBLW  96
+02A8:  BC    02C6
+02AA:  MOVF   29,W
+02AC:  SUBLW  5A
+02AE:  BC    02C6
+02B0:  MOVF   29,W
+02B2:  SUBLW  8B
+02B4:  BNC   02C6
+....................     { 
+....................       output_high(pin_d0);  
+02B6:  BCF    F95.0
+02B8:  BSF    F8C.0
+....................       output_low(pin_d1);  
+02BA:  BCF    F95.1
+02BC:  BCF    F8C.1
+....................       output_low(pin_d2);  
+02BE:  BCF    F95.2
+02C0:  BCF    F8C.2
+....................       output_high(pin_d3);  
+02C2:  BCF    F95.3
+02C4:  BSF    F8C.3
+....................  
+....................     } 
+....................      if(pot_deger[1]<80 && pot_deger[0]>90 && pot_deger[0]<140) 
+02C6:  MOVF   2A,W
+02C8:  SUBLW  4F
+02CA:  BNC   02E8
+02CC:  MOVF   29,W
+02CE:  SUBLW  5A
+02D0:  BC    02E8
+02D2:  MOVF   29,W
+02D4:  SUBLW  8B
+02D6:  BNC   02E8
+....................     { 
+....................           output_low(pin_d0);  
+02D8:  BCF    F95.0
+02DA:  BCF    F8C.0
+....................           output_high(pin_d1);  
+02DC:  BCF    F95.1
+02DE:  BSF    F8C.1
+....................           output_high(pin_d2);  
+02E0:  BCF    F95.2
+02E2:  BSF    F8C.2
+....................           output_low(pin_d3);  
+02E4:  BCF    F95.3
+02E6:  BCF    F8C.3
+....................                  // pwm_dutyA=0;// soft pwm 
+....................     } 
+....................    output_low(pin_a0); 
+02E8:  BCF    F92.0
+02EA:  BCF    F89.0
+02EC:  BCF    FF0.1
+02EE:  GOTO   006C
+.................... } 
+....................  
+.................... void main() 
+*
+05D0:  CLRF   FF8
+05D2:  BCF    FD0.7
+05D4:  BSF    07.7
+05D6:  BCF    16.1
+05D8:  CLRF   19
+05DA:  CLRF   1A
+05DC:  MOVLW  01
+05DE:  MOVWF  24
+05E0:  CLRF   31
+05E2:  CLRF   32
+05E4:  CLRF   33
+05E6:  CLRF   34
+05E8:  MOVF   FC1,W
+05EA:  ANDLW  C0
+05EC:  IORLW  0F
+05EE:  MOVWF  FC1
+05F0:  MOVLW  07
+05F2:  MOVWF  FB4
+05F4:  BCF    16.0
+05F6:  BCF    16.0
+05F8:  CLRF   17
+05FA:  CLRF   18
+05FC:  CLRF   1B
+05FE:  CLRF   1C
+0600:  CLRF   1D
+0602:  CLRF   1E
+0604:  CLRF   1F
+0606:  CLRF   20
+0608:  CLRF   21
+060A:  CLRF   22
+060C:  CLRF   23
+.................... {   
+....................    RF_INT_EN();              // Habilitar interrupción RB0/INT. 
+060E:  BRA    02F2
+....................    RF_CONFIG_SPI();          // Configurar módulos SPI del PIC. 
+0610:  BRA    0308
+....................    RF_CONFIG(0x40,0x08);     // Configurar módulo RF (canal y dirección). 
+0612:  MOVLW  40
+0614:  MOVWF  37
+0616:  MOVLW  08
+0618:  MOVWF  38
+061A:  BRA    0322
+....................    RF_ON();  // Activar el módulo RF. 
+061C:  BRA    0574
+....................     
+....................       set_tris_a(0x00); 
+061E:  MOVLW  00
+0620:  MOVWF  F92
+....................    output_a(0x00); 
+0622:  CLRF   F92
+0624:  CLRF   F89
+....................     
+....................        int     k; 
+....................     int8    i=0; 
+0626:  CLRF   36
+....................      
+....................     for(k=0;k<=(n-1);k++) 
+0628:  CLRF   35
+062A:  MOVF   35,W
+062C:  SUBLW  02
+062E:  BNC   0646
+....................       duty[k]=centro;// 
+0630:  CLRF   03
+0632:  MOVF   35,W
+0634:  ADDLW  25
+0636:  MOVWF  FE9
+0638:  MOVLW  00
+063A:  ADDWFC 03,W
+063C:  MOVWF  FEA
+063E:  MOVLW  0F
+0640:  MOVWF  FEF
+0642:  INCF   35,F
+0644:  BRA    062A
+....................      
+....................     setup_timer_0(RTCC_DIV_8 | RTCC_8_BIT); 
+0646:  MOVLW  C2
+0648:  MOVWF  FD5
+....................  
+....................     set_timer0(val_timer0); 
+064A:  CLRF   FD7
+064C:  MOVLW  7F
+064E:  MOVWF  FD6
+....................      
+....................     enable_interrupts(INT_TIMER0); 
+0650:  BSF    FF2.5
+....................     enable_interrupts(GLOBAL); 
+0652:  MOVLW  C0
+0654:  IORWF  FF2,F
+....................      
+....................      duty[0]=11; 
+0656:  MOVLW  0B
+0658:  MOVWF  25
+....................      duty[1]=13; 
+065A:  MOVLW  0D
+065C:  MOVWF  26
+....................  
+....................  
+....................      output_low(pin_d0);  
+065E:  BCF    F95.0
+0660:  BCF    F8C.0
+....................           output_low(pin_d1);  
+0662:  BCF    F95.1
+0664:  BCF    F8C.1
+....................           output_low(pin_d2);  
+0666:  BCF    F95.2
+0668:  BCF    F8C.2
+....................           output_low(pin_d3);  
+066A:  BCF    F95.3
+066C:  BCF    F8C.3
+....................            
+....................     output_high(pin_a3); 
+066E:  BCF    F92.3
+0670:  BSF    F89.3
+....................                 delay_ms(1000); 
+0672:  MOVLW  04
+0674:  MOVWF  37
+0676:  MOVLW  FA
+0678:  MOVWF  38
+067A:  RCALL  052A
+067C:  DECFSZ 37,F
+067E:  BRA    0676
+....................                 output_low(pin_a3); 
+0680:  BCF    F92.3
+0682:  BCF    F89.3
+....................                  
+....................  
+....................     set_timer1(15035);// soft pwm 
+0684:  MOVLW  3A
+0686:  MOVWF  FCF
+0688:  MOVLW  BB
+068A:  MOVWF  FCE
+....................     setup_timer_1(T1_INTERNAL|T1_DIV_BY_1);// soft pwm 
+068C:  MOVLW  85
+068E:  MOVWF  FCD
+....................      enable_interrupts(int_timer1);// soft pwm 
+0690:  BSF    F9D.0
+....................    enable_interrupts(GLOBAL);// soft pwm 
+0692:  MOVLW  C0
+0694:  IORWF  FF2,F
+....................     
+....................    while(true) 
+....................    {    
+....................  
+.................... if(pot_deger[2]>50) 
+0696:  MOVF   2B,W
+0698:  SUBLW  32
+069A:  BC    06AA
+.................... { 
+....................   duty[0]= pot_deger[2]/10; 
+069C:  MOVFF  2B,37
+06A0:  MOVLW  0A
+06A2:  MOVWF  38
+06A4:  RCALL  05A8
+06A6:  MOVFF  01,25
+.................... } 
+.................... if(pot_deger[3]>50) 
+06AA:  MOVF   2C,W
+06AC:  SUBLW  32
+06AE:  BC    06BE
+.................... { 
+....................   duty[1]= pot_deger[3]/10; 
+06B0:  MOVFF  2C,37
+06B4:  MOVLW  0A
+06B6:  MOVWF  38
+06B8:  RCALL  05A8
+06BA:  MOVFF  01,26
+.................... } 
+.................... if(pot_deger[5]>50) 
+06BE:  MOVF   2E,W
+06C0:  SUBLW  32
+06C2:  BC    06D2
+.................... { 
+....................   duty[2]= pot_deger[5]/10; 
+06C4:  MOVFF  2E,37
+06C8:  MOVLW  0A
+06CA:  MOVWF  38
+06CC:  RCALL  05A8
+06CE:  MOVFF  01,27
+.................... } 
+.................... if(pot_deger[7]>50) 
+06D2:  MOVF   30,W
+06D4:  SUBLW  32
+06D6:  BC    06E6
+.................... { 
+....................   duty[3]= pot_deger[7]/10; 
+06D8:  MOVFF  30,37
+06DC:  MOVLW  0A
+06DE:  MOVWF  38
+06E0:  RCALL  05A8
+06E2:  MOVFF  01,28
+.................... } 
+.................... if(out_deger==10) 
+06E6:  MOVF   30,W
+06E8:  SUBLW  0A
+06EA:  BNZ   0702
+.................... { 
+....................   output_high(pin_a3); 
+06EC:  BCF    F92.3
+06EE:  BSF    F89.3
+....................                 delay_ms(1000); 
+06F0:  MOVLW  04
+06F2:  MOVWF  37
+06F4:  MOVLW  FA
+06F6:  MOVWF  38
+06F8:  RCALL  052A
+06FA:  DECFSZ 37,F
+06FC:  BRA    06F4
+....................                 output_low(pin_a3); 
+06FE:  BCF    F92.3
+0700:  BCF    F89.3
+.................... } 
+0702:  BRA    0696
+....................  
+....................  
+.................... }// Bucle infinito. 
+....................  
+....................     
+....................   // int8 cont=0, ret2; 
+....................     
+....................   // while(true) 
+....................   // {   
+....................    //   RF_DATA[0] = cont;     // El contenido del contador lo cargo en RF_DATA[0] para ser enviado. 
+....................    //   RF_DIR=0x08;           // Dirección del receptor. 
+....................     //  ret2=RF_SEND();        // Envía el dato. 
+....................     //  cont++;                // Incrementa el contador. 
+....................    //   delay_ms(50);          // Una pausa en cada incremento. 
+....................  //  } 
+.................... } 
+0704:  SLEEP 
+
+Configuration Fuses:
+   Word  1: CE21   PLL2 CPUDIV1 USBDIV HSPLL FCMEN IESO
+   Word  2: 1E38   PUT NOBROWNOUT BORV21 VREGEN NOWDT WDT32768
+   Word  3: 8700   CCP2C1 PBADEN LPT1OSC MCLR
+   Word  4: 00A1   STVREN NOLVP ICSP2 NOXINST NODEBUG
+   Word  5: C00F   NOPROTECT NOCPB NOCPD
+   Word  6: E00F   NOWRT NOWRTC NOWRTB NOWRTD
+   Word  7: 400F   NOEBTR NOEBTRB

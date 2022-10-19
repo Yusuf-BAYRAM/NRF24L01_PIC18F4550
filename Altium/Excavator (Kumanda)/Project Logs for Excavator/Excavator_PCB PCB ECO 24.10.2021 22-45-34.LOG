@@ -1,0 +1,31 @@
+Removed Pin From Net: NetName=+5 Pin=H1-2
+Removed Pin From Net: NetName=+5 Pin=H2-2
+Removed Pin From Net: NetName=+5 Pin=H3-2
+Removed Pin From Net: NetName=+5 Pin=H4-2
+Removed Pin From Net: NetName=+5 Pin=H5-2
+Removed Pin From Net: NetName=+5 Pin=H6-2
+Added Pin To Net: NetName=+5 Pin=H1-1
+Added Pin To Net: NetName=+5 Pin=H2-1
+Added Pin To Net: NetName=+5 Pin=H3-1
+Added Pin To Net: NetName=+5 Pin=H4-1
+Added Pin To Net: NetName=+5 Pin=H5-1
+Added Pin To Net: NetName=+5 Pin=H6-1
+Added Pin To Net: NetName=NetH1_2 Pin=H1-2
+Added Pin To Net: NetName=NetH1_2 Pin=PIC1-2
+Added Net: Name=NetH1_2
+Added Pin To Net: NetName=NetH2_2 Pin=H2-2
+Added Pin To Net: NetName=NetH2_2 Pin=PIC1-3
+Added Net: Name=NetH2_2
+Added Pin To Net: NetName=NetH3_2 Pin=H3-2
+Added Pin To Net: NetName=NetH3_2 Pin=PIC1-4
+Added Net: Name=NetH3_2
+Added Pin To Net: NetName=NetH4_2 Pin=H4-2
+Added Pin To Net: NetName=NetH4_2 Pin=PIC1-5
+Added Net: Name=NetH4_2
+Added Pin To Net: NetName=NetH5_2 Pin=H5-2
+Added Pin To Net: NetName=NetH5_2 Pin=PIC1-6
+Added Net: Name=NetH5_2
+Added Pin To Net: NetName=NetH6_2 Pin=H6-2
+Added Pin To Net: NetName=NetH6_2 Pin=PIC1-7
+Added Net: Name=NetH6_2
+Added Room: Name=Excavator_SEMA

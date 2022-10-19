@@ -1,0 +1,8 @@
+Added Member To Class: ClassName=Excavator_SEMA Member=Component B1 BUTTON
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R1 4.7K
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R2 4.7K
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R3 330
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R4 330
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R5 10K
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R6 330
+Added Room: Name=Excavator_SEMA

@@ -1,0 +1,254 @@
+#include <18F4550.h>
+#device ADC = 8 // 10 bitlik çevirme iþlemi yapýlacak (0 - 1023 arasý)
+#fuses HSPLL,NOWDT,NOPROTECT,NOLVP,NODEBUG,USBDIV,PLL2,CPUDIV1,VREGEN,NOBROWNOUT     // 8MHZ
+//#fuses HSPLL,USBDIV,PLL5,CPUDIV1,VREGEN,NOWDT,NOPROTECT,NOLVP,NODEBUG,NOBROWNOUT   // 20 MHZ
+#use delay(clock=48000000)
+
+#include "lib_rf2gh4_10_4550.h" //nRF24L01 Kütüpahanesini PIC 18F4550'ye uyarlanmýþ halini projeye ekledik.
+
+
+#define LCD_RS_PIN PIN_D6
+#define LCD_RW_PIN PIN_D7
+#define LCD_ENABLE_PIN PIN_B3
+#define LCD_DATA4 PIN_B4
+#define LCD_DATA5 PIN_B5
+#define LCD_DATA6 PIN_B6
+#define LCD_DATA7 PIN_B7
+
+#include <lcd.c>
+
+
+int8 pot_deger[7], out_deger;
+int8 lcd_ekran;
+
+#byte porta=0xF80               // Dirección de los puertos A, B, C, D y E.
+#byte portb=0xF81
+#byte portc=0xF82
+#byte portd=0xF83
+#byte porte=0xF84
+
+#int_ext2                  
+void int_RB2()               // Esta rutina está para un futuro si haces comunicaciones bidireccionales.
+{                            // No tiene efecto en el programa principal, ya que sólo emite.
+   int8 ret1;                // Se encargaría de la recepción de datos.
+   
+   ret1 = RF_RECEIVE();
+   if ( (ret1 == 0) || (ret1 == 1) )
+   {
+      do
+      {  
+         ret1 = RF_RECEIVE(); 
+      }  while ( (ret1 == 0) || (ret1 == 1) );
+   }  
+             pot_deger_yenile();
+     ekran_yenile();
+}
+
+//#int_timer0
+//void timer0_kesmasi()
+//{
+      
+//}
+void pot_deger_yenile()
+{
+ set_adc_channel(0); // AN1 numaralý kanaldan okuma yapacaðýmýzý belirttik
+      delay_ms(10); // 1 saniye bekle
+      pot_deger[0] = read_adc(); // AN! numaralý kanaldan analog deðeri oku
+      delay_ms(20);
+      
+      set_adc_channel(1); // AN1 numaralý kanaldan okuma yapacaðýmýzý belirttik
+      delay_ms(10); // 1 saniye bekle
+      pot_deger[1] = read_adc(); // AN! numaralý kanaldan analog deðeri oku
+      delay_ms(20);
+      
+      set_adc_channel(2); // AN1 numaralý kanaldan okuma yapacaðýmýzý belirttik
+      delay_ms(10); // 1 saniye bekle
+      pot_deger[2] = read_adc(); // AN! numaralý kanaldan analog deðeri oku
+      delay_ms(20);
+         
+      set_adc_channel(3); // AN1 numaralý kanaldan okuma yapacaðýmýzý belirttik
+      delay_ms(10); // 1 saniye bekle
+      pot_deger[3] = read_adc(); // AN! numaralý kanaldan analog deðeri oku
+      delay_ms(20);
+      
+      set_adc_channel(4); // AN1 numaralý kanaldan okuma yapacaðýmýzý belirttik
+      delay_ms(10); // 1 saniye bekle
+      pot_deger[4] = read_adc(); // AN! numaralý kanaldan analog deðeri oku
+      delay_ms(20);
+      
+      set_adc_channel(5); // AN1 numaralý kanaldan okuma yapacaðýmýzý belirttik
+      delay_ms(10); // 1 saniye bekle
+      pot_deger[5] = read_adc(); // AN! numaralý kanaldan analog deðeri oku
+      delay_ms(20);
+      
+}
+
+void buton_yenile()
+{
+ if(input(pin_d1)==1)     // Buton okuma.
+    {
+    for(;;)
+    {
+    lcd_ekran++;
+    delay_ms(100);
+    //out_deger=2;/**/
+    break;
+    }
+    }
+    if(input(pin_d2)==1)     // Buton okuma.
+    {
+     for(;;)
+    {
+    lcd_ekran--;
+    delay_ms(100);
+    //out_deger=4;/**/
+     break;
+    }
+    }
+    if(input(pin_d4)==1)     // Buton okuma.
+    {
+    out_deger=8;/**/
+    }
+    if(input(pin_d5)==1)     // Buton okuma.
+    {
+    out_deger=10;/**/
+    }
+}
+
+
+#int_timer1
+void timer1_kesme()
+{
+set_timer1(1536);
+
+      buton_yenile();
+}
+/*
+//****************** Timer2 Kesmesi *****************************
+#int_timer2  // Timer2 kesmesi
+void  timer2_kesme ()   // Kesme fonksiyonu ismi
+{
+ 
+}
+*/
+void ekran_yenile()
+{
+
+switch(lcd_ekran){ 
+
+  case 0:
+      printf(lcd_putc, "\fEXCAVATOR"); 
+      lcd_gotoxy(0,2); // imleç 2ci satýr 3cü stüna git
+      printf(lcd_putc, "Hoþgeldiniz..");
+  break; 
+   case 1: 
+    printf(lcd_putc, "\f AN0= %d", (pot_deger[0] + 128)); // Ekrana Sayi Degeri = 35 yazar
+    lcd_gotoxy(0,2); // imleç 2ci satýr 3cü stüna git
+    printf(lcd_putc, "  AN1= %d", (pot_deger[1] + 128)); // Ekrana Sayi Degeri = 35 yazar
+  break; 
+   case 2: 
+    printf(lcd_putc, "\f AN2= %d", (pot_deger[2] + 128)); // Ekrana Sayi Degeri = 35 yazar
+    lcd_gotoxy(0,2); // imleç 2ci satýr 3cü stüna git
+    printf(lcd_putc, "  AN3= %d", (pot_deger[3] + 128)); // Ekrana Sayi Degeri = 35 yazar
+  break; 
+   case 3: 
+  printf(lcd_putc, "\f AN4= %d", (pot_deger[4]+128)); // Ekrana Sayi Degeri = 35 yazar
+    lcd_gotoxy(0,2); // imleç 2ci satýr 3cü stüna git
+    printf(lcd_putc, "  AN5= %d", (pot_deger[5]+128)); // Ekrana Sayi Degeri = 35 yazar
+  break; 
+   case 4: 
+    printf(lcd_putc, "\f Pot 4= %d", (pot_deger[4]+128)); // Ekrana Sayi Degeri = 35 yazar
+    lcd_gotoxy(0,2); // imleç 2ci satýr 3cü stüna git
+    printf(lcd_putc, "  Pot 5= %d", (pot_deger[5]+128)); // Ekrana Sayi Degeri = 35 yazar
+  break; 
+  case 5: 
+    printf(lcd_putc, "\f Out deger= %d", out_deger); // Ekrana Sayi Degeri = 35 yazar
+    lcd_gotoxy(0,2); // imleç 2ci satýr 3cü stüna git
+    printf(lcd_putc, "  Yusuf bayram"); // Ekrana Sayi Degeri = 35 yazar
+  break; 
+}
+}
+
+void main()
+{   
+lcd_init();
+lcd_ekran=0;
+  out_deger=0;
+     output_high(pin_E0);
+                delay_ms(500);
+                output_low(pin_E0);
+ 
+   
+   RF_INT_EN();              // Habilitar interrupción RB0/INT.
+   RF_CONFIG_SPI();          // Configurar módulo SPI del PIC.
+   RF_CONFIG(0x40,0x01);     // Configurar módulo RF canal y dirección de recepción de datos para este PIC.
+   RF_ON();                  // Activar el módulo RF.
+   
+   delay_ms(5);              // Dejamos como mínimo 2.5ms antes de comenzar a enviar.
+   
+  // set_tris_a(0b011111);     // Dejo RA5 como salida para evitar poner la resistencia de polarización.
+   
+       setup_adc(adc_clock_div_32);                // ADC module uses its internal oscillator
+       setup_adc_ports(AN0_TO_AN5);  
+
+
+
+   int8 cont=0, ret2;
+   
+      
+   lcd_putc("\fReady...\n");
+                   output_high(pin_E0);
+                delay_ms(500);
+                output_low(pin_E0);
+                
+                /*
+                
+                
+   setup_timer_0(RTCC_INTERNAL | RTCC_DIV_256);
+   set_timer0(250);
+   enable_interrupts(INT_timer0);
+   enable_interrupts(GLOBAL);
+   
+   */
+   setup_timer_1(T1_INTERNAL | T1_DIV_BY_2);
+   set_timer1(1536);
+   enable_interrupts(int_timer1);
+   enable_interrupts(GLOBAL);
+   
+   /*
+   setup_timer_2(T2_DIV_BY_16,250,16); // Timer2 ayarlarý yapýlýyor
+
+   enable_interrupts(INT_timer2); // int_timer2 kesmesini aktif yapar
+   enable_interrupts(GLOBAL);     // Aktif edilen kesmelere izin ver
+   */
+   while(true)
+   {  
+     
+
+
+
+
+      RF_DATA[0] =  pot_deger[0];     // El contenido del contador lo cargo en RF_DATA[0] para ser enviado.
+      RF_DATA[1] =  pot_deger[1];     // El contenido del contador lo cargo en RF_DATA[0] para ser enviado.
+      RF_DATA[2] =  pot_deger[2];     // El contenido del contador lo cargo en RF_DATA[0] para ser enviado.
+      RF_DATA[3] =  pot_deger[3];     // El contenido del contador lo cargo en RF_DATA[0] para ser enviado.
+      RF_DATA[4] =  pot_deger[4];     // El contenido del contador lo cargo en RF_DATA[0] para ser enviado.
+      RF_DATA[5] =  pot_deger[5];     // El contenido del contador lo cargo en RF_DATA[0] para ser enviado.
+      RF_DATA[6]=out_deger;
+      RF_DIR=0x08;           // Dirección del receptor.
+      ret2=RF_SEND();        // Envía el dato.
+      cont++;                // Incrementa el contador.
+      delay_ms(50);          // Una pausa en cada incremento.
+      
+      
+     
+       // delay_ms(1000);
+         // printf(lcd_putc, "\f pot  = %d", pot_deger[2]); // Ekrana Sayi Degeri = 35 yazar
+      //  printf(lcd_putc, "\n\f pot  = %d", pot_deger[3]); // Ekrana Sayi Degeri = 35 yazar
+       
+     
+      
+   }
+}
+
+

@@ -1,0 +1,24 @@
+Added Component: Designator=L1(LED_GREEN)
+Added Component: Designator=R2(330_RES)
+Added Component: Designator=R3(1K_RES)
+Added Component: Designator=R4(1K_RES)
+Added Component: Designator=R5(1K_RES)
+Added Pin To Net: NetName=GND Pin=L1-C
+Added Pin To Net: NetName=NetN1_2 Pin=R3-1
+Added Pin To Net: NetName=GND Pin=R3-2
+Added Pin To Net: NetName=NetN1_4 Pin=R4-1
+Added Pin To Net: NetName=GND Pin=R4-2
+Added Pin To Net: NetName=NetN1_3 Pin=R5-1
+Added Pin To Net: NetName=GND Pin=R5-2
+Added Pin To Net: NetName=NetL1_A Pin=L1-A
+Added Pin To Net: NetName=NetL1_A Pin=R2-1
+Added Net: Name=NetL1_A
+Added Pin To Net: NetName=NetPIC1_2 Pin=PIC1-2
+Added Pin To Net: NetName=NetPIC1_2 Pin=R2-2
+Added Net: Name=NetPIC1_2
+Added Member To Class: ClassName=Excavator_SEMA Member=Component L1 LED
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R2 330
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R3 1K
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R4 1K
+Added Member To Class: ClassName=Excavator_SEMA Member=Component R5 1K
+Added Room: Name=Excavator_SEMA

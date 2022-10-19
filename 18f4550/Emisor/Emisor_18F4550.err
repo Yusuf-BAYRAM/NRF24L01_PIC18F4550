@@ -1,0 +1,4 @@
+>>> Warning 216 "Emisor_18F4550.c" Line 250(1,2): Interrupts disabled during call to prevent re-entrancy:  (@delay_ms1)
+      Memory usage:   ROM=11%      RAM=2% - 4%
+      0 Errors,  1 Warnings.
+Build Successful.

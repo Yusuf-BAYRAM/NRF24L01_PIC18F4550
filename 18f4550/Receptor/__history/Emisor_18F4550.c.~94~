@@ -1,0 +1,185 @@
+#include <18F4550.h>
+#fuses HSPLL,NOWDT,NOPROTECT,NOLVP,NODEBUG,USBDIV,PLL2,CPUDIV1,VREGEN,NOBROWNOUT     // 8MHZ
+//#fuses HSPLL,USBDIV,PLL5,CPUDIV1,VREGEN,NOWDT,NOPROTECT,NOLVP,NODEBUG,NOBROWNOUT   // 20 MHZ
+#use delay(clock=48000000)
+
+
+#include "lib_rf2gh4_10_4550.h" // Librería modificada para el el nRF24L01 con el PIC 18F4550.
+
+#use fast_io(d)
+
+#byte porta=0xF80               // Dirección de los puertos A, B, C, D y E.
+#byte portb=0xF81
+#byte portc=0xF82
+#byte portd=0xF83
+#byte porte=0xF84
+
+//******
+//#bit  a0=porta.0           // Un truco para más tarde hacer intercambios de bits.
+
+int8 ret1, servo1, servo2, servo3, servo4,x;
+int8 pot_deger[7], out_deger;
+//#bit  b0=data.0            // Un truco para más tarde hacer intercambios de bits.
+//******
+
+unsigned int8 pwm_valA=0,pwm_valB=0,pwm_dutyA=0,pwm_dutyB=0;
+#int_timer1
+void timer1_kesmesi()
+{
+     
+      set_timer1(65185);//20mhz kristai ile 70usn
+      if(++pwm_valA<pwm_dutyA)output_high(pin_a1);
+      else output_low(pin_a1);
+      if(++pwm_valB<pwm_dutyB)output_high(pin_a2);
+      else output_low(pin_a2);      
+} 
+
+#int_ext2                  
+void int_RB2()               // Esta rutina está para un futuro si haces comunicaciones bidireccionales.
+{                            // No tiene efecto en el programa principal, ya que sólo emite.
+output_high(pin_a0);
+   ret1 = RF_RECEIVE();
+   if ( (ret1 == 0) || (ret1 == 1) )
+   {
+      do
+      {    
+         pot_deger[0]=RF_DATA[0];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0].
+           pot_deger[1]=RF_DATA[1];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0].
+            pot_deger[2]=RF_DATA[2];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0].
+             pot_deger[3]=RF_DATA[3];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0].
+              pot_deger[4]=RF_DATA[4];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0].
+               pot_deger[5]=RF_DATA[5];  // Data contendrá el valor que le llege del emisor, a través de RF_DATA[0].
+               out_deger=RF_DATA[6];
+         //porta=data;       // Lo que haya en data lo refleja en los LEDs.
+         //a0=b0;            // Un truco para que RB0 sirva de interrupción y RA0 para poner el LED correspondiente.
+         ret1 = RF_RECEIVE(); 
+      } while ( (ret1 == 0) || (ret1 == 1) ); // Tanto si existe entrada múltiple o simple de datos los lee. 
+   }
+   output_low(pin_a0);
+}
+
+void main()
+{  
+   RF_INT_EN();              // Habilitar interrupción RB0/INT.
+   RF_CONFIG_SPI();          // Configurar módulos SPI del PIC.
+   RF_CONFIG(0x40,0x08);     // Configurar módulo RF (canal y dirección).
+   RF_ON();  // Activar el módulo RF.
+   
+   set_tris_d(0x00);
+   
+   servo1=0;
+   servo2=0;
+   servo3=0;
+   servo4=0;
+     output_low(pin_d0); 
+          output_low(pin_d1); 
+          output_low(pin_d2); 
+          output_low(pin_d3); 
+          
+    output_high(pin_a3);
+                delay_ms(1000);
+                output_low(pin_a3);
+                
+    set_tris_a(0b11111001);
+    set_timer1(15035);// soft pwm
+    setup_timer_1(T1_INTERNAL|T1_DIV_BY_1);// soft pwm
+     enable_interrupts(int_timer1);// soft pwm
+   enable_interrupts(GLOBAL);// soft pwm
+   
+   while(true)
+   {   
+   if(servo1>170) servo1=170;
+   if(servo2>170) servo2=170;
+   if(servo3>170) servo3=170;
+   if(servo4>170) servo4=170;
+   if(servo1<10) servo1=10;
+   if(servo2<10) servo2=10;
+   if(servo3<10) servo3=10;
+   if(servo4<10) servo4=10;
+  
+ // if(pot_deger[2]>130 && pot_deger[2]<150) servo1++;
+ // if(pot_deger[2]>150 && pot_deger[2]<200) servo1+=4;
+ // if(pot_deger[2]>200 && pot_deger[2]<256) servo1+=8;
+  
+ // if(pot_deger[3]>130 && pot_deger[3]<150) servo2++;
+//  if(pot_deger[3]>150 && pot_deger[3]<200) servo2+=4;
+//  if(pot_deger[3]>200 && pot_deger[3]<256) servo2+=8; 
+    
+servo1=90;
+    
+servo2=90;  
+      servo1*=10;
+      servo1=servo1+600;
+      for(x=0;x<25;x++)
+      {
+      output_high(pin_d4); 
+      delay_us(servo1);
+      output_low(pin_d4);
+      delay_us(20000-servo1);
+      }
+      
+           
+      servo2*=10;
+      servo2=servo2+600;
+      for(x=0;x<25;x++)
+      {
+      output_high(pin_d5); 
+      delay_us(servo2);
+      output_low(pin_d5);
+      delay_us(20000-servo2);
+      }
+      
+    
+         pwm_dutyA=pot_deger[4];// soft pwm
+         pwm_dutyB=pot_deger[4];// soft pwm
+
+
+    
+    
+    if(pot_deger[0]>150 && pot_deger[1]>90 && pot_deger[1]<140)
+    {
+      output_high(pin_d0); 
+      output_low(pin_d1); 
+      output_high(pin_d2); 
+      output_low(pin_d3); 
+
+    }
+     if(pot_deger[0]<80 && pot_deger[1]>90 && pot_deger[1]<140)
+    {
+          output_low(pin_d0); 
+          output_high(pin_d1); 
+          output_low(pin_d2); 
+          output_high(pin_d3); 
+                 // pwm_dutyA=0;// soft pwm
+    }
+    
+     if(pot_deger[1]>150 && pot_deger[0]>90 && pot_deger[0]<140)
+    {
+      output_high(pin_d0); 
+      output_low(pin_d1); 
+      output_low(pin_d2); 
+      output_high(pin_d3); 
+
+    }
+     if(pot_deger[1]<80 && pot_deger[0]>90 && pot_deger[0]<140)
+    {
+          output_low(pin_d0); 
+          output_high(pin_d1); 
+          output_high(pin_d2); 
+          output_low(pin_d3); 
+                 // pwm_dutyA=0;// soft pwm
+    }
+   }// Bucle infinito.
+
+   
+  // int8 cont=0, ret2;
+   
+  // while(true)
+  // {  
+   //   RF_DATA[0] = cont;     // El contenido del contador lo cargo en RF_DATA[0] para ser enviado.
+   //   RF_DIR=0x08;           // Dirección del receptor.
+    //  ret2=RF_SEND();        // Envía el dato.
+    //  cont++;                // Incrementa el contador.
+   //   delay_ms(50);          // Una pausa en cada incremento.
+ //  }
+}

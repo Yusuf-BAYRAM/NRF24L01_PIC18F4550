@@ -1,0 +1,21 @@
+[PROJECT]
+Target=Emisor_18F4550.hex
+Processor_Text=PIC18F4550
+CCSVersion=5.007
+Compiler=PCH
+[Target Data]
+FileList=Emisor_18F4550.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\DriversC:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\;C:\Users\90543\Desktop\13.10.2021 NRf\Receptor\;C:\Users\90543\Desktop\15.10.2021 NRf\Receptor\;C:\Users\90543\Desktop\17.10.2021 NRf\Receptor\
+[Emisor_18F4550.c]
+Type=4
+[mru-list]
+1=Emisor_18F4550.c
+[Opened Files]
+1=Emisor_18F4550.c
+2=
+3=
+4=
+[Units]
+Count=1
+1=Emisor_18F4550 (main)

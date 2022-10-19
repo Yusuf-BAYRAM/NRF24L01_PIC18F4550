@@ -1,0 +1,9 @@
+>>> Warning 229 "Emisor_18F4550.c" Line 69(1,1): Subscript out of range
+>>> Warning 229 "Emisor_18F4550.c" Line 141(1,1): Subscript out of range
+>>> Warning 229 "Emisor_18F4550.c" Line 244(1,1): Subscript out of range
+>>> Warning 229 "Emisor_18F4550.c" Line 246(1,1): Subscript out of range
+>>> Warning 229 "Emisor_18F4550.c" Line 246(1,1): Subscript out of range
+>>> Warning 202 "Emisor_18F4550.c" Line 198(13,14): Variable never used:   i
+      Memory usage:   ROM=5%      RAM=3% - 3%
+      0 Errors,  6 Warnings.
+Build Successful.

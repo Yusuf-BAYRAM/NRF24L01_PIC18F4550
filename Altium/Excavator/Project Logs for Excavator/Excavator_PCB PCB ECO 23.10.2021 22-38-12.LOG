@@ -1,0 +1,105 @@
+Added Component: Designator=C1(CAP)
+Added Component: Designator=C2(22pF)
+Added Component: Designator=C3(22pF)
+Added Component: Designator=C4(CAP)
+Added Component: Designator=C5(CAP)
+Added Component: Designator=D1(L293D)
+Added Component: Designator=K1(klemens2li)
+Added Component: Designator=K2(klemens12V)
+Added Component: Designator=M1(klemensMOTOR)
+Added Component: Designator=M2(klemensMOTOR)
+Added Component: Designator=N1(NRF24L01)
+Added Component: Designator=O1(8MHZ)
+Added Component: Designator=PIC1(PIC18F4550)
+Added Component: Designator=R1(10K_RES)
+Added Component: Designator=U1(7805)
+Added Pin To Net: NetName=+5 Pin=C5-P
+Added Pin To Net: NetName=+5 Pin=D1-16
+Added Pin To Net: NetName=+5 Pin=K1-P
+Added Pin To Net: NetName=+5 Pin=N1-7
+Added Pin To Net: NetName=+5 Pin=R1-1
+Added Pin To Net: NetName=+5 Pin=U1-3
+Added Net: Name=+5
+Added Pin To Net: NetName=GND Pin=C1-N
+Added Pin To Net: NetName=GND Pin=C2-2
+Added Pin To Net: NetName=GND Pin=C3-2
+Added Pin To Net: NetName=GND Pin=C4-N
+Added Pin To Net: NetName=GND Pin=C5-N
+Added Pin To Net: NetName=GND Pin=D1-4
+Added Pin To Net: NetName=GND Pin=D1-5
+Added Pin To Net: NetName=GND Pin=D1-12
+Added Pin To Net: NetName=GND Pin=D1-13
+Added Pin To Net: NetName=GND Pin=K1-N
+Added Pin To Net: NetName=GND Pin=K2-N
+Added Pin To Net: NetName=GND Pin=N1-6
+Added Pin To Net: NetName=GND Pin=U1-2
+Added Net: Name=GND
+Added Pin To Net: NetName=NetC1_P Pin=C1-P
+Added Pin To Net: NetName=NetC1_P Pin=PIC1-18
+Added Net: Name=NetC1_P
+Added Pin To Net: NetName=NetC2_1 Pin=C2-1
+Added Pin To Net: NetName=NetC2_1 Pin=O1-1
+Added Pin To Net: NetName=NetC2_1 Pin=PIC1-13
+Added Net: Name=NetC2_1
+Added Pin To Net: NetName=NetC3_1 Pin=C3-1
+Added Pin To Net: NetName=NetC3_1 Pin=O1-2
+Added Pin To Net: NetName=NetC3_1 Pin=PIC1-14
+Added Net: Name=NetC3_1
+Added Pin To Net: NetName=NetC4_P Pin=C4-P
+Added Pin To Net: NetName=NetC4_P Pin=D1-8
+Added Pin To Net: NetName=NetC4_P Pin=K2-P
+Added Pin To Net: NetName=NetC4_P Pin=U1-1
+Added Net: Name=NetC4_P
+Added Pin To Net: NetName=NetD1_1 Pin=D1-1
+Added Pin To Net: NetName=NetD1_1 Pin=PIC1-3
+Added Net: Name=NetD1_1
+Added Pin To Net: NetName=NetD1_2 Pin=D1-2
+Added Pin To Net: NetName=NetD1_2 Pin=PIC1-19
+Added Net: Name=NetD1_2
+Added Pin To Net: NetName=NetD1_3 Pin=D1-3
+Added Pin To Net: NetName=NetD1_3 Pin=M1-P
+Added Net: Name=NetD1_3
+Added Pin To Net: NetName=NetD1_6 Pin=D1-6
+Added Pin To Net: NetName=NetD1_6 Pin=M1-N
+Added Net: Name=NetD1_6
+Added Pin To Net: NetName=NetD1_7 Pin=D1-7
+Added Pin To Net: NetName=NetD1_7 Pin=PIC1-20
+Added Net: Name=NetD1_7
+Added Pin To Net: NetName=NetD1_9 Pin=D1-9
+Added Pin To Net: NetName=NetD1_9 Pin=PIC1-4
+Added Net: Name=NetD1_9
+Added Pin To Net: NetName=NetD1_10 Pin=D1-10
+Added Pin To Net: NetName=NetD1_10 Pin=PIC1-21
+Added Net: Name=NetD1_10
+Added Pin To Net: NetName=NetD1_11 Pin=D1-11
+Added Pin To Net: NetName=NetD1_11 Pin=M2-P
+Added Net: Name=NetD1_11
+Added Pin To Net: NetName=NetD1_14 Pin=D1-14
+Added Pin To Net: NetName=NetD1_14 Pin=M2-N
+Added Net: Name=NetD1_14
+Added Pin To Net: NetName=NetD1_15 Pin=D1-15
+Added Pin To Net: NetName=NetD1_15 Pin=PIC1-22
+Added Net: Name=NetD1_15
+Added Pin To Net: NetName=NetN1_0 Pin=N1-0
+Added Pin To Net: NetName=NetN1_0 Pin=PIC1-16
+Added Net: Name=NetN1_0
+Added Pin To Net: NetName=NetN1_1 Pin=N1-1
+Added Pin To Net: NetName=NetN1_1 Pin=PIC1-15
+Added Net: Name=NetN1_1
+Added Pin To Net: NetName=NetN1_2 Pin=N1-2
+Added Pin To Net: NetName=NetN1_2 Pin=PIC1-34
+Added Net: Name=NetN1_2
+Added Pin To Net: NetName=NetN1_3 Pin=N1-3
+Added Pin To Net: NetName=NetN1_3 Pin=PIC1-26
+Added Net: Name=NetN1_3
+Added Pin To Net: NetName=NetN1_4 Pin=N1-4
+Added Pin To Net: NetName=NetN1_4 Pin=PIC1-33
+Added Net: Name=NetN1_4
+Added Pin To Net: NetName=NetN1_5 Pin=N1-5
+Added Pin To Net: NetName=NetN1_5 Pin=PIC1-35
+Added Net: Name=NetN1_5
+Added Pin To Net: NetName=NetPIC1_1 Pin=PIC1-1
+Added Pin To Net: NetName=NetPIC1_1 Pin=R1-2
+Added Net: Name=NetPIC1_1
+Added Class: Name=Excavator_SEMA
+Added Room: Name=Excavator_SEMA

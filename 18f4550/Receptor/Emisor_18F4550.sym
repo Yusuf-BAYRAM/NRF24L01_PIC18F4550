@@ -1,0 +1,132 @@
+000     @SCRATCH
+001     @SCRATCH
+001     _RETURN_
+002     @SCRATCH
+003     @SCRATCH
+004     @INTERRUPT_AREA
+005     @INTERRUPT_AREA
+006     @INTERRUPT_AREA
+007     @INTERRUPT_AREA
+008     @INTERRUPT_AREA
+009     @INTERRUPT_AREA
+00A     @INTERRUPT_AREA
+00B     @INTERRUPT_AREA
+00C     @INTERRUPT_AREA
+00D     @INTERRUPT_AREA
+00E     @INTERRUPT_AREA
+00F     @INTERRUPT_AREA
+010     @INTERRUPT_AREA
+011     @INTERRUPT_AREA
+012     @INTERRUPT_AREA
+013     @INTERRUPT_AREA
+014     @INTERRUPT_AREA
+015     @INTERRUPT_AREA
+016.0   interRF
+016.1   RCVNW
+017-018 noRF
+019     DATA_N_SND
+01A     DATA_N_RCV
+01B-022 RF_DATA
+023     RF_DIR
+024     theCount
+025-027 duty
+028     ret1
+029-02F pot_deger
+030     out_deger
+031     pwm_valA
+032     pwm_valB
+033     pwm_dutyA
+034     pwm_dutyB
+035     MAIN.k
+036     MAIN.i
+037     RF_CONFIG.canal
+037     @DIV88.P1
+037     @delay_us1.P2
+037     MAIN.@SCRATCH1
+038     RF_CONFIG.dir
+038     @delay_ms1.P1
+038     @DIV88.P2
+038     MAIN.@SCRATCH2
+039     @DIV88.@SCRATCH1
+03A     RF_RECEIVE.i
+03B     RF_RECEIVE.mas
+03C     RF_RECEIVE.estado
+03D     RF_RECEIVE.@SCRATCH1
+03E     RF_RECEIVE.@SCRATCH2
+F80     porta
+F81     portb
+F82     portc
+F83     PSP_DATA
+F83     portd
+F84     porte
+F92     TRISA
+F93     TRISB
+F94     TRISC
+F95     TRISD
+F96     TRISE
+FB4.6   C1OUT
+FB4.7   C2OUT
+FBB     CCP_2_LOW
+FBB     CCP_2
+FBC     CCP_2_HIGH
+FBE     CCP_1_LOW
+FBE     CCP_1
+FBF     CCP_1_HIGH
+FE1-FE2 @READ_PACKED_MEMORY.P1
+FE1-FE2 @WRITE_PACKED_MEMORY.P2
+FE9-FEA @WRITE_PACKED_MEMORY.P1
+FE9-FEA @WRITE_PROGRAM_MEMORY.P2
+FE9-FEA @READ_PROGRAM_MEMORY.P3
+FE9-FEA @READ_PACKED_MEMORY.P4
+FF2     INTCON
+FF6-FF8 @READ_PROGRAM_MEMORY.P1
+FF6-FF8 @WRITE_PROGRAM_MEMORY.P2
+
+ROM Allocation:
+0000AE  isr_timer0
+000124  timer1_kesmesi
+000156  RF_RECEIVE
+000216  int_RB2
+0002F2  RF_INT_EN
+000308  RF_CONFIG_SPI
+000322  RF_CONFIG
+00052A  @delay_ms1
+000552  @delay_us1
+000574  RF_ON
+0005A8  @DIV88
+0005D0  MAIN
+0005D0  @cinit1
+0005F4  @cinit2
+
+Project Directory:
+    C:\Users\90543\Desktop\17.10.2021 NRf\Receptor\
+
+Project Files:
+    Emisor_18F4550.c                                        [17-Eki-21 17:44  CRC=660ECD0E]
+    ..\..\..\..\..\Program Files (x86)\PICC\Devices\18F4550.h [21-Haz-13 16:05  CRC=A157EDDE]
+    lib_rf2gh4_10_4550.h                                    [17-Eyl-15 00:17  CRC=80F76EFE]
+
+Source signature=095598E8
+
+Units:
+    Emisor_18F4550 (main)
+
+Compiler Settings:
+    Processor:      PIC18F4550
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    XREF file:   Emisor_18F4550.xsym
+    Errors:      Emisor_18F4550.err
+    Ext Symbols: Emisor_18F4550.esym
+    INHX32:      Emisor_18F4550.hex
+    Symbols:     Emisor_18F4550.sym
+    List:        Emisor_18F4550.lst
+    Debug/COFF:  Emisor_18F4550.cof
+    Project:     Emisor_18F4550.ccspjt
+    Call Tree:   Emisor_18F4550.tre
+    Statistics:  Emisor_18F4550.STA
